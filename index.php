@@ -1,6 +1,8 @@
 <!doctype html:5>
 <html>
-    <?php require_once "entete.php"; ?>
+    <?php require "entete.php"; ?>
     <body>
+        <div class="container-fluid">
+        </div>
     </body>
 </html>
