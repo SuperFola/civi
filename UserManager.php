@@ -6,10 +6,10 @@ class UserManager {
 
     public function __construct() {
         $this->users = array();
-        $this->directory = __DIR__.'/config';
+        $this->directory = __DIR__ . '/db';
         $this->filename = 'users';
 
-        $filepath = $this->directory.'/'.$this->filename;
+        $filepath = $this->directory . '/' . $this->filename;
 
         if (!is_dir($this->directory)) {
             mkdir($this->directory);
@@ -92,7 +92,7 @@ class UserManager {
      */
     public function removeUser(User $user) {
         if ($user->isRoot()) {
-            throw new Exception('Impossible de supprimer l\'utilisateur "'. $user->getPseudo().'", ce dernier etant definit comme "root"');
+            throw new Exception('Impossible de supprimer l\'utilisateur "' . $user->getPseudo() . '", ce dernier etant défini comme "root"');
         }
         unset($this->users[$user->getId()]);
     }
@@ -112,10 +112,10 @@ class UserManager {
      * @throws Exception
      */
     private function persistUsers() {
-        $filepath = $this->directory.'/'.$this->filename;
+        $filepath = $this->directory . '/' . $this->filename;
 
         if (is_file($filepath)) {
-            throw new Exception('Le fichier "'. $filepath .' existe deja...');
+            throw new Exception('Le fichier "' . $filepath . '" existe déjà...');
         }
 
         $this->saveFile($filepath, serialize($this->users));
@@ -125,7 +125,7 @@ class UserManager {
      * Permet d'enregister dans le fichier l'array $users
      */
     public function updateUsers() {
-        $filepath = $this->directory.'/'.$this->filename;
+        $filepath = $this->directory . '/' . $this->filename;
 
         if (!is_file($filepath)) {
             $this->persistUsers();
@@ -141,10 +141,10 @@ class UserManager {
      * @throws Exception
      */
     private function deleteUsers() {
-        $filepath = $this->directory.'/'.$this->filename;
+        $filepath = $this->directory . '/' . $this->filename;
 
         if (!is_file($filepath)) {
-            throw new Exception('Le fichier "'. $filepath .' n\'existe pas...');
+            throw new Exception('Le fichier "' . $filepath . '" n\'existe pas...');
         }
 
         unlink($filepath);
@@ -171,8 +171,6 @@ class UserManager {
     private function getFile($filepath) {
         return unserialize(file_get_contents($filepath));
     }
-
-
 }
 
 class User {
@@ -190,7 +188,11 @@ class User {
     
     protected $key;
     protected $activated;
-    protected $bio;
+    
+    protected $bio;  // string
+    protected $contenu_sup;  // string
+    protected $age; // int
+    protected $competences;  // array key => value ; ajout de key possible par l'user ; value : int|string
 
     public function __construct() {
         $this->timestampCreation = time();
@@ -209,14 +211,14 @@ class User {
     /**
      * Remplit un objet User à partir de la requête
      *
-     * @return Post
+     * @return User
      */
     public function handlePostRequest($pseudo, $password, $email, $role) {
         $this->pseudo = htmlentities($pseudo);
         $this->email = htmlentities($email);
         if ($password != '') {
             $this->salt = $this->generateSalt();
-            $this->cryptedPassword = sha1($this->salt.$password);
+            $this->cryptedPassword = sha1($this->salt . $password);
         }
         $this->role = $role;
         if ($pseudo == 'ADMIN')
@@ -237,11 +239,7 @@ class User {
      * @return array
      */
     public function validate() {
-        $validation = array(
-            'valid' => true,
-            'errors' => array()
-        );
-
+        $validation = array('valid' => true, 'errors' => array());
         if ($this->pseudo == '') {
             $validation['valid'] = false;
             $validation['errors']['user_pseudo'] = 'Votre pseudo ne peut être vide';
@@ -254,7 +252,6 @@ class User {
             $validation['valid'] = false;
             $validation['errors']['user_password'] = 'Vos devez spécifier un mot de passe';
         }
-
         return $validation;
     }
 
@@ -281,7 +278,7 @@ class User {
      * @return bool
      */
     public function checkLogin($password) {
-        if (sha1($this->salt.$password) == $this->cryptedPassword && $this->activated) {
+        if (sha1($this->salt . $password) == $this->cryptedPassword && $this->activated) {
             return true;
         }
 
@@ -296,18 +293,13 @@ class User {
      * @return bool
      */
     public function is($role) {
-        if ($this->role == $role) {
-            return true;
-        }
-
-        return false;
+        return $this->role == $role;
     }
 
     /**
      * @return mixed
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -316,8 +308,7 @@ class User {
      *
      * @return User
      */
-    public function setId($id)
-    {
+    public function setId($id) {
         $this->id = $id;
         return $this;
     }
@@ -329,8 +320,7 @@ class User {
     /**
      * @return mixed
      */
-    public function getPseudo()
-    {
+    public function getPseudo() {
         return $this->pseudo;
     }
 
@@ -339,8 +329,7 @@ class User {
      *
      * @return User
      */
-    public function setPseudo($pseudo)
-    {
+    public function setPseudo($pseudo) {
         $this->pseudo = $pseudo;
         return $this;
     }
@@ -348,8 +337,7 @@ class User {
     /**
      * @return mixed
      */
-    public function getEmail()
-    {
+    public function getEmail() {
         return $this->email;
     }
 
@@ -358,8 +346,7 @@ class User {
      *
      * @return User
      */
-    public function setEmail($email)
-    {
+    public function setEmail($email) {
         $this->email = $email;
         return $this;
     }
@@ -367,8 +354,7 @@ class User {
     /**
      * @return mixed
      */
-    public function getCryptedPassword()
-    {
+    public function getCryptedPassword() {
         return $this->cryptedPassword;
     }
 
@@ -377,8 +363,7 @@ class User {
      *
      * @return User
      */
-    public function setCryptedPassword($cryptedPassword)
-    {
+    public function setCryptedPassword($cryptedPassword) {
         $this->cryptedPassword = $cryptedPassword;
         return $this;
     }
@@ -386,16 +371,14 @@ class User {
     /**
      * @return mixed
      */
-    public function getSalt()
-    {
+    public function getSalt() {
         return $this->salt;
     }
 
     /**
      * @return mixed
      */
-    public function getRole()
-    {
+    public function getRole() {
         return $this->role;
     }
 
@@ -404,8 +387,7 @@ class User {
      *
      * @return User
      */
-    public function setRole($role)
-    {
+    public function setRole($role) {
         $this->role = $role;
         return $this;
     }
@@ -413,16 +395,14 @@ class User {
     /**
      * @return mixed
      */
-    public function getTimestampCreation()
-    {
+    public function getTimestampCreation() {
         return $this->timestampCreation;
     }
 
     /**
      * @return mixed
      */
-    public function getLastLogin()
-    {
+    public function getLastLogin() {
         return $this->getDisplayableDate($this->lastLogin);
     }
     
@@ -455,8 +435,7 @@ class User {
      *
      * @return User
      */
-    public function setLastLogin($lastLogin)
-    {
+    public function setLastLogin($lastLogin) {
         $this->lastLogin = $lastLogin;
         return $this;
     }
@@ -464,26 +443,22 @@ class User {
     /**
      * @return boolean
      */
-    public function isRoot()
-    {
+    public function isRoot() {
         return $this->root;
     }
 
     /**
      * @param boolean $root
      */
-    public function setRoot($root)
-    {
+    public function setRoot($root) {
         $this->root = $root;
     }
     
-    public function setBio($bio)
-    {
+    public function setBio($bio) {
         $this->bio = $bio;
     }
     
-    public function getBio()
-    {
+    public function getBio() {
         if (isset($this->bio))
             return $this->bio;
         return "";
