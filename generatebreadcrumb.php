@@ -11,9 +11,26 @@
             else
                 echo "<li class=\"active\"><a href=\"index.php\">Accueil</a></li>";
         } else {
-            echo "<li><a href=\"index.php\">Accueil</a></li>";
-            echo "<li><a href=\"?view=TEST1\">TEST1</a></li>";
-            echo "<li class=\"active\">TEST2</li>";
+            // array("createprofile", "editaccount", "search", "viewprofile", "about", "search-error")
+            if ($parsed["view"] == "createprofile") {
+                echo "<li><a href=\"index.php\">Accueil</a></li>";
+                echo "<li><a href=\"?view=createprofile\">Profile</a></li>";
+                echo "<li class=\"active\">Création</li>";
+            } else if ($parsed["view"] == "editaccount") {
+                echo "<li><a href=\"index.php\">Accueil</a></li>";
+                echo "<li><a href=\"?view=editaccount\">Profile</a></li>";
+                echo "<li class=\"active\">patate</li>";
+            } else if ($parsed["view"] == "search") {
+                echo "<li><a href=\"index.php\">Accueil</a></li>";
+                echo "<li class=\"active\">Recherche</li>";
+            } else if ($parsed["view"] == "viewprofile") {
+                echo "<li><a href=\"index.php\">Accueil</a></li>";
+                echo "<li><a href=\"?view=viewprofile\">Profile</a></li>";
+                echo "<li class=\"active\">patate</li>";
+            } else if ($parsed["view"] == "about") {
+                echo "<li><a href=\"index.php\">Accueil</a></li>";
+                echo "<li class=\"active\">A propos</li>";
+            }
         }
         echo "</ol>";
     }
