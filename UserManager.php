@@ -463,4 +463,37 @@ class User {
             return $this->bio;
         return "";
     }
+    
+    public function getContenuSup() {
+        if (isset($this->contenu_sup))
+            return $this->contenu_sup;
+        return "";
+    }
+    
+    public function setContenuSup($val) {
+        $contenu_sup = $val;
+        return $this;
+    }
+    
+    public function getAge() {
+        if (isset($this->age))
+            return $this->age;
+        return -1;
+    }
+    
+    public function setAge($age) {
+        $this->age = $age;
+        return $this;
+    }
+    
+    public function getCompetences() {
+        if (isset($this->competences))
+            return $this->competences;
+        return array("empty" => true);
+    }
+    
+    public function setCompetences($competences) {
+        $this->competences = $competences;
+        return $this;
+    }
 }
