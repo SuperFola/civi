@@ -6,14 +6,20 @@
 <?php
 require "parseparameters.php";
 require "generatebreadcrumb.php";
+require "Parsedown.php"; $Parsedown = new Parsedown();
+require "UserManager.php"; $UserManager = new UserManager();
 ?>
         <div class="container-fluid">
 <?php
+require "navbar.php";
+
 if (isset($_GET) && !empty($_GET)) {
     // on parse les paramètres
     $parsed = parseparameters($_GET);
     if ($parsed["valid"] == true)
         generateBreadCrumb($parsed);
+    else
+        generateBreadCrumb(array(), /* focus */ true);
 } else {
     generateBreadCrumb(array());
 }
@@ -27,14 +33,14 @@ if (isset($_GET) && !empty($_GET)) {
             </div>
     <?php if (isset($parsed["view"]) and $parsed["view"] == "undefined") { ?>
         <div class="alert alert-info" role="alert">
-            <a href="#" class="alert-link">Oh snap ! Impossible de trouver la page</a>
+            <a href="#" class="alert-link">Oh snap ! Impossible de trouver la page</a>. <a href="index.php">Retour à la maison</a>
         </div>
     <?php } ?>
 <?php } else {
     if ($parsed["view"] == "undefined") {
 
     } elseif ($parsed["view"] == "createprofile") {
-
+        echo $Parsedown->text("content ~~right~~ **there** *nigga*");
     } elseif ($parsed["view"] == "editaccount") {
 
     } elseif ($parsed["view"] == "search") {
@@ -43,6 +49,8 @@ if (isset($_GET) && !empty($_GET)) {
 
     } elseif ($parsed["view"] == "about") {
 
+    } else if ($parsed["view"] == "search-error") {
+        echo "Impossible de trouver ce que vous cherchez, une équipe de chimpanzés sur-entrainés a probablement trouvé avant vous ce que vous cherchiez :(";
     } else { ?>
         <script type="text/javascript">window.location.replace("index.php?view=undefined");</script>
     <?php } ?>
