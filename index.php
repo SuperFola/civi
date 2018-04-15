@@ -5,10 +5,10 @@
     <body>
     <!-- on va utiliser une fonction pour parser le $_GET et savoir quoi afficher -->
 <?php
-require "parseparameters.php";  // pour parser les paramètres GET de la page
-require "generatebreadcrumb.php";  // pour générer le "fil d'Ariane"
 require "Parsedown.php"; $Parsedown = new Parsedown();  // pour parser du markdown en HTML
 require "UserManager.php"; $UserManager = new UserManager();  // pour avoir accès à la base de données utilisateurs
+require "parseparameters.php";  // pour parser les paramètres GET de la page
+require "generatebreadcrumb.php";  // pour générer le "fil d'Ariane"
 ?>
         <div class="container-fluid">
 <?php
@@ -41,13 +41,13 @@ if (isset($_GET) && !empty($_GET)) {
     <?php } ?>
 <?php } else {
     if ($parsed["view"] == "undefined") {
-
+        echo $Parsedown->text(file_get_contents("./assets/views/undefined"));
     } elseif ($parsed["view"] == "createprofile") {
         echo $Parsedown->text("content ~~right~~ **there** *nigga*");
     } elseif ($parsed["view"] == "editaccount") {
 
     } elseif ($parsed["view"] == "search") {
-
+        echo $Parsedown->text($_SESSION['search']);
     } elseif ($parsed["view"] == "viewprofile") {
 
     } elseif ($parsed["view"] == "about") {
