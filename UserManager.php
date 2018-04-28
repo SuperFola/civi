@@ -195,7 +195,7 @@ class User {
     
     protected $bio;  // string
     protected $contenu_sup;  // string
-    protected $age; // int
+    protected $yearofbirth; // int
     protected $competences;  // array key => value ; ajout de key possible par l'user ; value : int
 
     public function __construct() {
@@ -204,6 +204,20 @@ class User {
         $this->root = false;
         $this->key = "";
         $this->activated = false;
+    }
+    
+    public function getCompactData() {
+        $content = $this->pseudo . "\n" .
+            $this->email . "\n" .
+            (intval(date('Y')) - $this->yearofbirth) . " ans\n" .
+            $this->bio . "\n" .
+            $this->contenu_sup . "\n";
+        
+        foreach ($this->competences as $key => $value) {
+            $content .= $key . "=" . $value . "\n";
+        }
+        
+        return $content;
     }
     
     public function activate($key) {
@@ -484,13 +498,13 @@ class User {
     }
     
     public function getAge() {
-        if (isset($this->age))
-            return $this->age;
-        return -1;
+        if (isset($this->yearofbirth))
+            return intval(date('Y')) - $this->yearofbirth;
+        return 0;
     }
     
     public function setAge($age) {
-        $this->age = $age;
+        $this->yearofbirth = intval(date('Y')) - $age;
         return $this;
     }
     

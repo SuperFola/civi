@@ -25,5 +25,4 @@ if (!isset($competences["empty"])) {
 $message .= "## Informations supplémentaires\n\n" . str_replace("\n", "\n\n", $user->getContenuSup());
 
 echo $Parsedown->text($message);
-die();
 ?>

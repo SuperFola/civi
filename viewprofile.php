@@ -15,6 +15,6 @@ if (isset($_GET["profile"]) and $UserManager->findUserByPseudo($_GET['profile'])
         $_SESSION['error'] .= "aucun profil n'a été fourni";
 }
 
-header("Location: index.php?viewprofile");
+header("Location: index.php?view=viewprofile");
 exit();
 ?>

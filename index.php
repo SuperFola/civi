@@ -53,7 +53,7 @@ if(!isset($parsed) or (isset($parsed["view"]) and $parsed["view"] == "undefined"
             // affichage de la vue pour éditer son profil ------------------------------------------------------------
         }
     } elseif ($parsed["view"] == "search") {
-        echo $Parsedown->text($_SESSION['search']);  // -------------------------------------------------------
+        echo $Parsedown->text($_SESSION['search']);
         // nettoyer la variable de session
         unset($_SESSION['search']);
     } elseif ($parsed["view"] == "viewprofile") {
