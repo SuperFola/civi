@@ -8,7 +8,7 @@
      */
     function parseparameters($params) {
         $output = array();
-        $valid_views = array("createprofile", "editaccount", "search", "viewprofile", "about", "search-error");
+        $valid_views = array("createprofile", "editaccount", "search", "viewprofile", "about", "search-error", "disconnected", "signin");
 
         if (isset($params["view"])) {
             if (in_array($params["view"], $valid_views)) {

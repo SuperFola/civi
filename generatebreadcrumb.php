@@ -30,6 +30,12 @@
             } else if ($parsed["view"] == "about") {
                 echo "<li><a href=\"index.php\">Accueil</a></li>";
                 echo "<li class=\"active\">A propos</li>";
+            } else if ($parsed["view"] == "disconnected") {
+                echo "<li><a href=\"index.php\">Accueil</a></li>";
+                echo "<li class=\"active\">Déconnexion</li>";
+            } else if ($parsed["view"] == "signin") {
+                echo "<li><a href=\"index.php\">Accueil</a></li>";
+                echo "<li class=\"active\">Connexion</li>";
             }
         }
         echo "</ol>";

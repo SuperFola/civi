@@ -43,17 +43,71 @@ if (isset($_GET) && !empty($_GET)) {
     if ($parsed["view"] == "undefined") {
         echo $Parsedown->text(file_get_contents("./assets/views/undefined"));
     } elseif ($parsed["view"] == "createprofile") {
-        echo $Parsedown->text("content ~~right~~ **there** *nigga*");
+        if (isset($_SESSION['error'])) {
+            echo $Parsedown->text($_SESSION['error']);
+            // nettoyage
+            unset($_SESSION['error']);
+        } else {
+            // affichage de la vue pour créer son profil
+            require "generateformcreateprofile.php";
+        }
     } elseif ($parsed["view"] == "editaccount") {
-
+        if (isset($_SESSION['error'])) {
+            echo $Parsedown->text($_SESSION['error']);
+            // nettoyage
+            unset($_SESSION['error']);
+        } else {
+            // affichage de la vue pour éditer son profil ------------------------------------------------------------
+        }
     } elseif ($parsed["view"] == "search") {
         echo $Parsedown->text($_SESSION['search']);
+        // nettoyer la variable de session
+        unset($_SESSION['search']);
     } elseif ($parsed["view"] == "viewprofile") {
-
+        if (isset($_SESSION["error"])) {
+            echo $Parsedown->text($_SESSION['error']);
+            // nettoyage de la variable de session error
+            unset($_SESSION['error']);
+        } else {
+            // affichage du profil demandé --------------------------------------------------------------------------
+            
+            // nettoyage
+            unset($_SESSION['viewingprofileof']);
+        }
     } elseif ($parsed["view"] == "about") {
-
+        echo $Parsedown->text(file_get_contents("./assets/views/about"));
     } else if ($parsed["view"] == "search-error") {
         echo "Impossible de trouver ce que vous cherchez, une équipe de chimpanzés sur-entrainés a probablement trouvé avant vous ce que vous cherchiez :(";
+    } else if ($parsed["view"] == "disconnect") {
+        if (isset($_SESSION['error'])) {
+            echo $Parsedown->text($_SESSION['error']);
+            // nettoyage
+            unset($_SESSION['error']);
+        } else {
+            // affichage de la vue de déconnexion
+            echo $Parsedown->text(file_get_contents("./assets/views/disconnect"));
+        }
+    } else if ($parsed["view"] == "signin") {
+        if (isset($_SESSION['error'])) {
+            echo $Parsedown->text($_SESSION['error']);
+            // nettoyage
+            unset($_SESSION['error']);
+        } else {
+            // affichage de la vue pour se connecter
+?>
+        <form method="POST" action="signin.php">
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">Nom Prénom</span>
+                <input id="username" type="text" class="form-control" placeholder="Dupont Jean" aria-describedby="basic-addon1">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon3">Mot de passe</span>
+                <input id="password" type="password" class="form-control" placeholder="******" aria-describedby="basic-addon3">
+            </div>
+            <button type="submit" class="btn btn-default">Valider</button>
+        </form>
+<?php
+        }
     } else { ?>
         <script type="text/javascript">window.location.replace("index.php?view=undefined");</script>
     <?php } ?>

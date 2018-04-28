@@ -2,12 +2,14 @@
 session_start();
 
 if (!isset($_POST)) {
+    // permet uniquement d'avoir une URL plus jolie à écrire
+    // vérifie tout de même si l'utilisateur est déjà connecté ou non
+
     if (isset($_SESSION['id'])) {
-        $_SESSION['error'] = "## Erreur\nImpossible de créer un nouveau compte si vous êtes déjà connecté !\nSi c'est bien ce que vous souhaitiez faire, vous pouvez vous [déconnecter](disconnect.php) ;-)";
+        $_SESSION['error'] = "## Erreur\nImpossible de se connecter, puisque vous l'êtes déjà ! :-P";
     }
 
-    // redirection sur index.php, cette page sert uniquement à avoir des URL plus jolies à écrire
-    header("Location: index.php?view=createprofile");
+    header("Location: index.php?view=signin");
     exit();
 } else {
     require "UserManager.php"; $UserManager = new UserManager();  // pour avoir accès à la base de données utilisateurs
@@ -15,7 +17,7 @@ if (!isset($_POST)) {
     $name = (isset($_POST['username'])) ? htmlspecialchars($_POST['username']) : null;
     $user = $UserManager->findUserByPseudo($name);
     
-    /*if ($user != null) {
+    if ($user != null) {
         $pass = (isset($_POST['password'])) ? htmlspecialchars($_POST['password']) : "";
         if ($user->checkLogin($pass)) {
             $_SESSION['id'] = $user->getId();
@@ -25,9 +27,9 @@ if (!isset($_POST)) {
         }
     } else {
         $_SESSION['error'] = "## Erreur\nLe nom d'utilisateur ou le mot de passe est incorrect";
-    }*/
+    }
     
-    header("Location: editaccount.php");
+    header("Location: index.php");
     exit();
 }
 ?>

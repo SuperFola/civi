@@ -72,6 +72,7 @@ class UserManager {
     public function addUser(User $user) {
         $user->setId(count($this->users));
         $this->users[] = $user;
+        return $this;
     }
 
     /**
@@ -81,6 +82,7 @@ class UserManager {
      */
     public function editUser(User $user) {
         $this->users[$user->getId()] = $user;
+        return $this;
     }
 
     /**
@@ -95,6 +97,7 @@ class UserManager {
             throw new Exception('Impossible de supprimer l\'utilisateur "' . $user->getPseudo() . '", ce dernier etant défini comme "root"');
         }
         unset($this->users[$user->getId()]);
+        return $this;
     }
 
     /**
@@ -133,6 +136,7 @@ class UserManager {
         }
 
         $this->saveFile($filepath, serialize($this->users));
+        return $this;
     }
 
     /**
@@ -223,10 +227,12 @@ class User {
         $this->role = $role;
         if ($pseudo == 'ADMIN')
             $this->activated = true;
+        return $this;
     }
     
     public function setActivated($val=true) {
         $this->activated = $val;
+        return $this;
     }
     
     public function getActivated() {
@@ -281,7 +287,6 @@ class User {
         if (sha1($this->salt . $password) == $this->cryptedPassword && $this->activated) {
             return true;
         }
-
         return false;
     }
 
@@ -315,6 +320,7 @@ class User {
     
     public function setKey($key) {
         $this->key = $key;
+        return $this;
     }
 
     /**
@@ -452,10 +458,12 @@ class User {
      */
     public function setRoot($root) {
         $this->root = $root;
+        return $this;
     }
     
     public function setBio($bio) {
         $this->bio = $bio;
+        return $this;
     }
     
     public function getBio() {
