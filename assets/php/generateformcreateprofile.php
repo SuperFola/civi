@@ -20,5 +20,5 @@
                 <input id="pass-2" name="pass-2" type="password" class="form-control" placeholder="******" aria-describedby="basic-addon4">
             </div>
             <br>
-            <button id="submit-profile" class="btn btn-warning btn-sm disabled" type="submit" class="btn btn-default">Envoyer</button>
+            <button id="submit-profile" class="btn btn-warning btn-sm disabled" type="submit">Envoyer</button>
         </form>

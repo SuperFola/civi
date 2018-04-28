@@ -83,5 +83,7 @@ if(!isset($parsed) or (isset($parsed["view"]) and $parsed["view"] == "undefined"
 } ?>
         </div>
         <script type="text/javascript" src="./assets/js/passwordCheckingRegister.js"></script>
+        <script type="text/javascript" src="./assets/js/charsCounter.js"></script>
+        <script type="text/javascript" src="./assets/js/competencesAdder.js"></script>
     </body>
 </html>

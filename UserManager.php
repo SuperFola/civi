@@ -508,6 +508,11 @@ class User {
         return $this;
     }
     
+    public function setYearOfBirth($yob) {
+        $this->yearofbirth = $yob;
+        return $this;
+    }
+    
     public function getCompetences() {
         if (isset($this->competences))
             return $this->competences;

@@ -1,31 +1,39 @@
         <h1>Édition du profil</h1>
-        <!--
-        email
-        bio (max 500 caractères !)
-        contenu sup (no limit)
-        year of birth
-        competences (complexe mais ca se tente tkt)
-        -->
         <form method="post" action="editaccount.php">
-            <!--<div class="input-group">
-                <span class="input-group-addon" id="basic-addon1">Nom Prénom</span>
-                <input name="username" type="text" class="form-control" placeholder="Dupont Jean" aria-describedby="basic-addon1">
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">E-Mail</span>
+                <input name="editemail" type="email" class="form-control" placeholder="jean.dupont@exemple.com" aria-describedby="basic-addon1">
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon2">Biographie</span>
+                        <textarea name="editbio" id="editbio" type="text" rows="5" maxlength="500" onKeyDown="textCounter(this, 'maxsize', 500)" onKeyUp="textCounter(this, 'maxsize', 500)" class="form-control" placeholder="Votre biographie ici (500 caractères maximum)" aria-describedby="basic-addon2"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-3 text-right">
+                    <input type="button" id="maxsize" size="3" maxsize="3" class="btn btn-primary" readonly value="500">
+                </div>
             </div>
             <br>
             <div class="input-group">
-                <span class="input-group-addon" id="basic-addon2">E-Mail</span>
-                <input name="email" type="email" class="form-control" placeholder="jean.dupont@exemple.com" aria-describedby="basic-addon2">
+                <span class="input-group-addon" id="basic-addon3">Contenu supplémentaire</span>
+                <textarea name="editcontenusup" type="text" rows="5" class="form-control" placeholder="..." aria-describedby="basic-addon3"></textarea>
             </div>
             <br>
             <div class="input-group">
-                <span class="input-group-addon" id="basic-addon3">Mot de passe</span>
-                <input id="pass-1" name="pass-1" type="password" class="form-control" placeholder="******" aria-describedby="basic-addon3">
+                <span class="input-group-addon" id="basic-addon4">Année de naissance</span>
+                <input name="edityearofbirth" type="number" class="form-control" min="1900" aria-describedby="basic-addon4">
             </div>
             <br>
-            <div class="input-group">
-                <span class="input-group-addon" id="basic-addon4">Répéter le mot de passe</span>
-                <input id="pass-2" name="pass-2" type="password" class="form-control" placeholder="******" aria-describedby="basic-addon4">
+            <div>
+                <h3>Compétences</h3>
+                <br>
+                <div id="competences-list" onclick="setPOST()"></div>
+                <button type="button" class="btn btn-primary btn-lg" onclick="addCompetence()">+</button>
             </div>
-            <br>-->
-            <button class="btn btn-warning btn-sm disabled" type="submit" class="btn btn-default">Valider</button>
+            <input type="hidden" name="editcompetences" id="editcompetences">
+            <br><br>
+            <button class="btn btn-default btn-lg" type="submit">Valider</button>
         </form>
