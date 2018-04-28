@@ -32,7 +32,7 @@
             </ul>
             <form class="navbar-form navbar-left" method="POST" action="search.php">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Ex: électricien, informaticien..." />
+                    <input name="text" type="text" class="form-control" placeholder="Ex: électricien, informaticien..." />
                 </div>
                 <button type="submit" class="btn btn-default">Rechercher</button>
             </form>

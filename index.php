@@ -38,8 +38,6 @@ if(!isset($parsed) or (isset($parsed["view"]) and $parsed["view"] == "undefined"
     } elseif ($parsed["view"] == "createprofile") {
         if (isset($_SESSION['error'])) {
             echo $Parsedown->text($_SESSION['error']);
-            // nettoyage
-            unset($_SESSION['error']);
         } else {
             // affichage de la vue pour créer son profil
             require "./assets/php/generateformcreateprofile.php";
@@ -47,25 +45,18 @@ if(!isset($parsed) or (isset($parsed["view"]) and $parsed["view"] == "undefined"
     } elseif ($parsed["view"] == "editaccount") {
         if (isset($_SESSION['error'])) {
             echo $Parsedown->text($_SESSION['error']);
-            // nettoyage
-            unset($_SESSION['error']);
         } else {
-            // affichage de la vue pour éditer son profil ------------------------------------------------------------
+            // affichage de la vue pour éditer son profil
+            require "./assets/php/generatevieweditaccount.php";
         }
     } elseif ($parsed["view"] == "search") {
         echo $Parsedown->text($_SESSION['search']);
-        // nettoyer la variable de session
-        unset($_SESSION['search']);
     } elseif ($parsed["view"] == "viewprofile") {
         if (isset($_SESSION["error"])) {
             echo $Parsedown->text($_SESSION['error']);
-            // nettoyage de la variable de session error
-            unset($_SESSION['error']);
         } else {
             // affichage du profil demandé
             require "./assets/php/generateviewprofile.php";
-            // nettoyage
-            unset($_SESSION['viewingprofileof']);
         }
     } elseif ($parsed["view"] == "about") {
         echo $Parsedown->text(file_get_contents("./assets/views/about"));
@@ -74,8 +65,6 @@ if(!isset($parsed) or (isset($parsed["view"]) and $parsed["view"] == "undefined"
     } else if ($parsed["view"] == "disconnect") {
         if (isset($_SESSION['error'])) {
             echo $Parsedown->text($_SESSION['error']);
-            // nettoyage
-            unset($_SESSION['error']);
         } else {
             // affichage de la vue de déconnexion
             echo $Parsedown->text(file_get_contents("./assets/views/disconnect"));
@@ -83,8 +72,6 @@ if(!isset($parsed) or (isset($parsed["view"]) and $parsed["view"] == "undefined"
     } else if ($parsed["view"] == "signin") {
         if (isset($_SESSION['error'])) {
             echo $Parsedown->text($_SESSION['error']);
-            // nettoyage
-            unset($_SESSION['error']);
         } else {
             // affichage de la vue pour se connecter
             require "./assets/php/generateformsignin.php";
