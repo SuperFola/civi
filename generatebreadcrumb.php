@@ -19,14 +19,14 @@
             } else if ($parsed["view"] == "editaccount") {
                 echo "<li><a href=\"index.php\">Accueil</a></li>";
                 echo "<li><a href=\"?view=editaccount\">Profile</a></li>";
-                echo "<li class=\"active\">" . $_SESSION['name'] . "</li>";
+                echo "<li class=\"active\">" . ((isset($_SESSION['name'])) ? $_SESSION['name'] : "Erreur") . "</li>";
             } else if ($parsed["view"] == "search") {
                 echo "<li><a href=\"index.php\">Accueil</a></li>";
                 echo "<li class=\"active\">Recherche</li>";
             } else if ($parsed["view"] == "viewprofile") {
                 echo "<li><a href=\"index.php\">Accueil</a></li>";
                 echo "<li><a href=\"?view=viewprofile\">Profile</a></li>";
-                echo "<li class=\"active\">" . $_SESSION['viewingprofileof'] . "</li>";
+                echo "<li class=\"active\">" . ((isset($_SESSION['viewingprofileof'])) ? $_SESSION['viewingprofileof'] : ((!isset($_GET['profile'])) ? $_SESSION['name'] : $_GET['profile'])) . "</li>";
             } else if ($parsed["view"] == "about") {
                 echo "<li><a href=\"index.php\">Accueil</a></li>";
                 echo "<li class=\"active\">A propos</li>";

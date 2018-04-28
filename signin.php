@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if (!isset($_POST)) {
+if (!isset($_POST['username']) and !isset($_POST['password'])) {
     // permet uniquement d'avoir une URL plus jolie à écrire
     // vérifie tout de même si l'utilisateur est déjà connecté ou non
 

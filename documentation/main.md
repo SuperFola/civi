@@ -27,3 +27,8 @@ Chaque vue est un fichier markdown et certaines choses qui ont besoin d'être g�
 Cette variable globale est utilisée pour stocker un peu de tout, des résultats de recherche au format markdown à l'identifiant de connexion d'une personne, aux différents indicateurs d'affichage des vues.
 
 Champs réservés : `error`, `id`, `search`, `viewingprofileof`, `name`
+
+# Critiques
+
+Un rôle ADMINISTRATEUR est créé et est exploitable en utilisant la méthode `is(String $role)` sur un User, mais n'est implémenté nul part (autrement dit, avoir un compte administrateur ne sert pas à grand chose actuellement). 
+On pourrait voir comme amélioration la possibilité de modérer des comptes, les modifier, en étant administrateur.

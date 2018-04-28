@@ -196,7 +196,7 @@ class User {
     protected $bio;  // string
     protected $contenu_sup;  // string
     protected $age; // int
-    protected $competences;  // array key => value ; ajout de key possible par l'user ; value : int|string
+    protected $competences;  // array key => value ; ajout de key possible par l'user ; value : int
 
     public function __construct() {
         $this->timestampCreation = time();

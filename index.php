@@ -32,6 +32,7 @@ if(!isset($parsed) or (isset($parsed["view"]) and $parsed["view"] == "undefined"
     if (isset($parsed["view"]) and $parsed["view"] == "undefined")
         require "./assets/php/generatealertundefined.php";
 } else {
+    echo "<div class=\"jumbotron\">";
     if ($parsed["view"] == "undefined") {
         echo $Parsedown->text(file_get_contents("./assets/views/undefined"));
     } elseif ($parsed["view"] == "createprofile") {
@@ -61,8 +62,8 @@ if(!isset($parsed) or (isset($parsed["view"]) and $parsed["view"] == "undefined"
             // nettoyage de la variable de session error
             unset($_SESSION['error']);
         } else {
-            // affichage du profil demandé ---------------------------------------------------------------------------
-            
+            // affichage du profil demandé
+            require "./assets/php/generateviewprofile.php";
             // nettoyage
             unset($_SESSION['viewingprofileof']);
         }
@@ -91,7 +92,9 @@ if(!isset($parsed) or (isset($parsed["view"]) and $parsed["view"] == "undefined"
     } else {
         echo "<script type=\"text/javascript\">window.location.replace(\"index.php?view=undefined\");</script>";
      }
+     echo "</div>";
 } ?>
         </div>
+        <script type="text/javascript" src="./assets/js/passwordCheckingRegister.js"></script>
     </body>
 </html>
