@@ -493,7 +493,7 @@ class User {
     }
     
     public function setContenuSup($val) {
-        $contenu_sup = $val;
+        $this->contenu_sup = $val;
         return $this;
     }
     
@@ -506,6 +506,10 @@ class User {
     public function setAge($age) {
         $this->yearofbirth = intval(date('Y')) - $age;
         return $this;
+    }
+    
+    public function getYearOfBirth() {
+        return $this->yearofbirth;
     }
     
     public function setYearOfBirth($yob) {

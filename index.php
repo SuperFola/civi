@@ -85,5 +85,12 @@ if(!isset($parsed) or (isset($parsed["view"]) and $parsed["view"] == "undefined"
         <script type="text/javascript" src="./assets/js/passwordCheckingRegister.js"></script>
         <script type="text/javascript" src="./assets/js/charsCounter.js"></script>
         <script type="text/javascript" src="./assets/js/competencesAdder.js"></script>
+        <?php if (isset($parsed) and $parsed["view"] == "editaccount") { ?>
+        <script type="text/javascript">
+        (function () {
+        <?php $x = $UserManager->findUser($_SESSION['id'])->getCompetences(); if (!isset($x["empty"])) { foreach ($x as $key => $value) { ?>addCompetence(<?php echo "'" . $key . "', " . $value; ?>);<?php }} ?>
+        })();
+        </script>
+        <?php } ?>
     </body>
 </html>

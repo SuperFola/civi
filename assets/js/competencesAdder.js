@@ -2,7 +2,7 @@ function mydicttoString(dict) {
     var o = "";
     for (var p in dict) {
         if (dict.hasOwnProperty(p))
-            o += p + "::" + dict[p] + ";";
+            o += p + "::" + dict[p] + "///";
     }
     return o;
 }
@@ -38,7 +38,7 @@ function resetButton(a) {
     a.className = "btn btn-default";
 }
 
-function createBlocks(container) {
+function createBlocks(level, container) {
     // créons 5 blocs chacun activant son prédescesseur
     // à partir de checkbox bootstrap
     var btn1 = createButton();
@@ -87,6 +87,12 @@ function createBlocks(container) {
         btn5.className = btn4.className;
     });
     
+    if (level == 1) $(btn1).click();
+    if (level == 2) $(btn2).click();
+    if (level == 3) $(btn3).click();
+    if (level == 4) $(btn4).click();
+    if (level == 5) $(btn5).click();
+    
     container.appendChild(btn1);
     container.appendChild(document.createTextNode('\xa0'));
     container.appendChild(btn2);
@@ -98,7 +104,7 @@ function createBlocks(container) {
     container.appendChild(btn5);
 }
 
-function addCompetence() {
+function addCompetence(name="", level=0) {
     var daddy = document.getElementById("competences-list");
     var container = document.createElement("div");
     container.className = "competence-bloc";
@@ -112,6 +118,7 @@ function addCompetence() {
             input.type = "text";
             input.className = "competence-input-name form-control";
             input.setAttribute("placeholder", "Nom de la compétence. Ex: C++, plomberie...");
+            input.setAttribute("value", name);
             
             divleft.appendChild(input);
         
@@ -119,7 +126,7 @@ function addCompetence() {
         divright.className = "col-md-6";
         divright.setAttribute("style", "width:45%");
         
-            createBlocks(divright);
+            createBlocks(level, divright);
     
         var cross = document.createElement("button");
         cross.type = "button";
