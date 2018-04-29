@@ -1,6 +1,6 @@
 # Bourse Coddity 2018
 
-*Développer une plateforme permettant aux étudiants de présenter les éléments qui, selon vous, sont pertinents pour candidater un job étudiant, un stage ou un établissement post-bac*
+*Développer une plateforme permettant aux étudiants de présenter les éléments qui, selon vous, sont pertinents pour postuler à un job étudiant, un stage ou un établissement post-bac.*
 
 Identifiants pour `./db` : `Coddity`, `opera`
 
