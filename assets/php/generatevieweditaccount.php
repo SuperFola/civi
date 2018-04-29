@@ -1,5 +1,7 @@
         <h1>Édition du profil</h1>
         <i>La rédaction du mini Curriculum Vitae et du paragraphe "Contenu supplémentaire" au format Markdown est supportée</i>
+        <br>
+        <br>
         <?php $u = $UserManager->findUser($_SESSION['id']); ?>
         <form method="post" action="editaccount.php">
             <div class="input-group">
@@ -13,6 +15,17 @@
                         <span class="input-group-addon" id="basic-addon2">Curriculum Vitae</span>
                         <textarea name="editbio" id="editbio" type="text" rows="5" maxlength="500" onKeyDown="textCounter(this, 'maxsize', 500)" onKeyUp="textCounter(this, 'maxsize', 500)" class="form-control" placeholder="Votre biographie ici (500 caractères maximum)" aria-describedby="basic-addon2"><?php if ($u != null) echo $u->getBio(); ?></textarea>
                     </div>
+                    <br>
+                    <i>Tips</i> pour compléter votre C.V. :<br>
+                    <ul>
+                        <li>Soyez bref et conçis, allez à l'essentiel</li>
+                        <li>Mentionnez vos diplômes les plus importants (ex: le BAC, un master que vous avez fait, les diplômes linguistiques...)</li>
+                        <li>Mentionnez vos expériences professionnelles (stage en entreprise, job d'été, tout y passe si vous avez la place)</li>
+                        <li>Ne mentionnez pas vos <i>soft skills</i> / <i>hard skills</i>, nous avons des champs juste pour ça ;-)</li>
+                        <li>Pour ce qui concerne vos activités extra-scolaires (pour ceux qui sont encore aux études), placez les plutôt dans la catégorie <b>Contenu supplémentaire</b></li>
+                        <li>De même, si vous souhaitez en dire plus à propos d'un diplôme, d'une expérience, faites le plutôt dans la catégorie suivante</li>
+                        <li>Pensez à mentionner vos passions, si vous faites du bénévolat, vos voyages linguistiques, bref tout ce qui fait de vous quelqu'un d'unique, sortant du lot, dans la catégorie <b>Contenu supplémentaire</b></li>
+                    </ul>
                 </div>
                 <div class="col-md-3 text-right">
                     <input type="button" id="maxsize" size="3" maxsize="3" class="btn btn-primary" readonly value="<?php if ($u != null) { echo 500-strlen($u->getBio()); } else { echo "500"; } ?>">

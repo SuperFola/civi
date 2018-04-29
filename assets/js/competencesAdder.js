@@ -1,3 +1,4 @@
+// transformer un dictionnaire en string pour l'envoyer dans une requete POST
 function mydicttoString(dict) {
     var o = "";
     for (var p in dict) {
@@ -7,6 +8,7 @@ function mydicttoString(dict) {
     return o;
 }
 
+// on rempli un champ hidden avec la valeur str du dico de valeurs représentant l'état des boutons des compétences (avec leurs noms) pour l'envoyer dans la requete POST
 function setPOST() {
     var dict = {};
     for (var i=0; i < document.getElementById("competences-list").children.length; ++i) {
@@ -23,6 +25,7 @@ function setPOST() {
     document.getElementById("editcompetences").value = mydicttoString(dict);
 }
 
+// fonction pour créer un simple bouton selon un format précis
 function createButton() {
     var btn = document.createElement("button");
     btn.setAttribute("type", "button");
@@ -34,10 +37,12 @@ function createButton() {
     return btn;
 }
 
+// réinitialisation de l'état d'un bouton
 function resetButton(a) {
     a.className = "btn btn-default";
 }
 
+// création des blocs de compétences (génération d'un mini-DOM)
 function createBlocks(level, container) {
     // créons 5 blocs chacun activant son prédescesseur
     // à partir de checkbox bootstrap
@@ -104,7 +109,10 @@ function createBlocks(level, container) {
     container.appendChild(btn5);
 }
 
+// génération du champ de compétences (input text field + croix pour supprimer la div + 5 carrés pour créer un "niveau" de compétences) et intégration à l'HTML (génération d'un mini-DOM)
 function addCompetence(name="", level=0) {
+    // indentation par groupement (ou div/conteneur) pour savoir qui va où et qui contient quoi
+    
     var daddy = document.getElementById("competences-list");
     var container = document.createElement("div");
     container.className = "competence-bloc";
