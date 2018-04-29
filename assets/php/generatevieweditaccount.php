@@ -1,5 +1,5 @@
         <h1>Édition du profil</h1>
-        <i>La rédaction de la biographie et du paragraphe "Contenu supplémentaire" au format Markdown est supportée</i>
+        <i>La rédaction du mini Curriculum Vitae et du paragraphe "Contenu supplémentaire" au format Markdown est supportée</i>
         <?php $u = $UserManager->findUser($_SESSION['id']); ?>
         <form method="post" action="editaccount.php">
             <div class="input-group">
@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="col-md-9">
                     <div class="input-group">
-                        <span class="input-group-addon" id="basic-addon2">Biographie</span>
+                        <span class="input-group-addon" id="basic-addon2">Curriculum Vitae</span>
                         <textarea name="editbio" id="editbio" type="text" rows="5" maxlength="500" onKeyDown="textCounter(this, 'maxsize', 500)" onKeyUp="textCounter(this, 'maxsize', 500)" class="form-control" placeholder="Votre biographie ici (500 caractères maximum)" aria-describedby="basic-addon2"><?php if ($u != null) echo $u->getBio(); ?></textarea>
                     </div>
                 </div>

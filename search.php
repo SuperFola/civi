@@ -27,7 +27,7 @@ if (!isset($_POST) or !isset($_POST["text"])) {
     foreach ($results as $user) {
         $_SESSION['search'] .= "<a href=\"viewprofile.php?profile=" . htmlentities($user->getPseudo()) . "\">" . $user->getPseudo() . "</a>\n\n";
         $_SESSION['search'] .= "*" . $user->getAge() . " ans, " . $user->getEmail() . "*\n\n";
-        $_SESSION['search'] .= $user->getBio() . "\n\n----\n\n";
+        $_SESSION['search'] .= str_replace("# ", "## ", $user->getBio()) . "\n\n----\n\n";
     }
     
     header("Location: index.php?view=search");

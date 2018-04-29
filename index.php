@@ -11,7 +11,7 @@ require "parseparameters.php";  // pour parser les paramètres GET de la page
 require "generatebreadcrumb.php";  // pour générer le "fil d'Ariane"
 
 // génération de la page web
-echo "<div class=\"container-fluid\">";
+echo "<div class=\"container-fluid\" id=\"999999\">";
 require "navbar.php";  // inclus et génère la navbar
 
 $SITE_ADRESSE = "http://cv-dot-com.alwaysdata.net";
@@ -31,8 +31,9 @@ if (isset($_GET) && !empty($_GET)) {
 
 if(!isset($parsed) or (isset($parsed["view"]) and $parsed["view"] == "undefined")) {
     require "./assets/php/generatejumbotron.php";
-    if (isset($parsed["view"]) and $parsed["view"] == "undefined")
-        require "./assets/php/generatealertundefined.php";
+    if (isset($parsed["view"]) and $parsed["view"] == "undefined") {
+        // require "./assets/php/generatealertundefined.php";*
+    }
 } else {
     echo "<div class=\"jumbotron\">";
     if ($parsed["view"] == "undefined") {
@@ -64,7 +65,7 @@ if(!isset($parsed) or (isset($parsed["view"]) and $parsed["view"] == "undefined"
             require "./assets/php/generateviewprofile.php";
         }
     } elseif ($parsed["view"] == "about") {
-        echo $Parsedown->text(file_get_contents("./assets/views/about"));
+        echo $Parsedown->text(str_replace("%documentation%", file_get_contents("./documentation/main.md"), file_get_contents("./assets/views/about")));
     } else if ($parsed["view"] == "search-error") {
         echo "Impossible de trouver ce que vous cherchez, une équipe de chimpanzés sur-entrainés a probablement trouvé avant vous ce que vous cherchiez :(";
     } else if ($parsed["view"] == "disconnect") {
@@ -89,6 +90,7 @@ if(!isset($parsed) or (isset($parsed["view"]) and $parsed["view"] == "undefined"
      echo "</div>";
 } ?>
         </div>
+<?php require "./assets/php/generatefooter.php"; ?>
         
         <script type="text/javascript" src="./assets/js/main.js"></script>
         <script type="text/javascript" src="./assets/js/passwordCheckingRegister.js"></script>

@@ -25,8 +25,8 @@
                 echo "<li class=\"active\">Recherche</li>";
             } else if ($parsed["view"] == "viewprofile") {
                 echo "<li><a href=\"index.php\">Accueil</a></li>";
-                echo "<li><a href=\"?view=viewprofile\">Profil</a></li>";
-                echo "<li class=\"active\">" . ((isset($_SESSION['viewingprofileof'])) ? $_SESSION['viewingprofileof'] : ((!isset($_GET['profile'])) ? $_SESSION['name'] : htmlspecialchars($_GET['profile']))) . "</li>";
+                echo "<li><a href=\"viewprofile.php?profile=" . htmlspecialchars($parsed["profile"]) . "\">Profil</a></li>";
+                echo "<li class=\"active\">" . htmlspecialchars($parsed["profile"]) . "</li>";
             } else if ($parsed["view"] == "about") {
                 echo "<li><a href=\"index.php\">Accueil</a></li>";
                 echo "<li class=\"active\">A propos</li>";

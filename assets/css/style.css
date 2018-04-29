@@ -1,1 +1,30 @@
-body { padding-top: 50px; }
+html {
+    min-height: 100%;
+    position: relative;
+}
+
+body {
+    padding-top: 50px;
+    height: 100%;
+    padding-bottom: 150px;
+}
+
+footer.footer {
+    position: absolute;
+    bottom: 0;
+    
+    height: 150px;
+    width: 100%;
+    background-color: #eee;
+    
+    border-style: solid none none none;
+    border-top-color: #ccc;
+    border-width: 2px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
