@@ -29,7 +29,7 @@ les Curriculum Vitae, compétences, informations complémentaires, adresses mail
 
 Cette variable globale est utilisée pour stocker un peu de tout, des résultats de recherche au format markdown à l'identifiant de connexion d'une personne, aux différents indicateurs d'affichage des vues.
 
-Champs réservés : `error`, `id`, `search`, `viewingprofileof`, `name`.
+Champs réservés : `error`, `id`, `search`, `search-head`, `search-error`, `viewingprofileof`, `name`.
 
 # Critiques
 

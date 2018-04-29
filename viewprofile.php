@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require "UserManager.php"; $UserManager = new UserManager();  // pour avoir accès à la base de données utilisateurs
+require "./UserManager.php"; $UserManager = new UserManager();  // pour avoir accès à la base de données utilisateurs
 
 if (isset($_GET["profile"]) and $UserManager->findUserByPseudo($_GET['profile']) != null) {
     $_SESSION['viewingprofileof'] = htmlspecialchars($_GET['profile']);

@@ -1,20 +1,18 @@
 <?php session_start(); ?>
 <!doctype html>
 <html>
-<?php require "entete.php"; ?>
+<?php require "./entete.php"; ?>
     <body>
-    <!-- on va utiliser une fonction pour parser le $_GET et savoir quoi afficher -->
 <?php
-require "Parsedown.php"; $Parsedown = new Parsedown();  // pour parser du markdown en HTML
-require "UserManager.php"; $UserManager = new UserManager();  // pour avoir accès à la base de données utilisateurs
-require "parseparameters.php";  // pour parser les paramètres GET de la page
-require "generatebreadcrumb.php";  // pour générer le "fil d'Ariane"
-
+// on va utiliser une fonction pour parser le $_GET et savoir quoi afficher
+require "./Parsedown.php"; $Parsedown = new Parsedown();  // pour parser du markdown en HTML
+require "./UserManager.php"; $UserManager = new UserManager();  // pour avoir accès à la base de données utilisateurs
+require "./parseparameters.php";  // pour parser les paramètres GET de la page
+require "./generatebreadcrumb.php";  // pour générer le "fil d'Ariane"
 // génération de la page web
 echo "<div class=\"container-fluid\" id=\"999999\">";
-require "navbar.php";  // inclus et génère la navbar
-
-$SITE_ADRESSE = "http://cv-dot-com.alwaysdata.net";
+require "./navbar.php";  // inclus et génère la navbar
+require "./config.php";  // contient les variables globales importantes (pour le moment uniquement l'url principale du site web)
 
 if (isset($_GET) && !empty($_GET)) {
     // on parse les paramètres
@@ -55,6 +53,7 @@ if(!isset($parsed) or (isset($parsed["view"]) and $parsed["view"] == "undefined"
             require "./assets/php/generatevieweditaccount.php";
         }
     } elseif ($parsed["view"] == "search") {
+        echo $_SESSION["search-head"];
         echo $Parsedown->text($_SESSION['search']);
     } elseif ($parsed["view"] == "viewprofile") {
         if (isset($_SESSION["error"])) {

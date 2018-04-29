@@ -30,9 +30,9 @@
                 </ul>
                 </li>-->
             </ul>
-            <form class="navbar-form navbar-left" method="POST" action="search.php">
+            <form class="navbar-form navbar-left" method="GET" action="search.php">
                 <div class="form-group">
-                    <input name="text" type="text" class="form-control" placeholder="Ex: électricien, informaticien..." />
+                    <input name="q" type="text" class="form-control" placeholder="Ex: électricien, informaticien..." />
                 </div>
                 <button type="submit" class="btn btn-default">Rechercher</button>
             </form>

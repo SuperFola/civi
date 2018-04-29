@@ -5,5 +5,5 @@ function copyToClipboard(element) {
     $temp.val(element).select();
     document.execCommand("copy");
     $temp.remove();
-    alert("Lien du profil copié dans le presse-papier !");
+    alert("Lien copié dans le presse-papier !");
 }
