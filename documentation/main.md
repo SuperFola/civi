@@ -16,7 +16,7 @@ Je suis parti sur une idée simple : une sorte de vue qui en fonction des param�
 
 # Des remarques en vrac sur le code
 
-J'utilise `session_start()` de façon à créer une session par utilisateur côté serveur, et les bases de données sont constituées de fichier .json (pour aller plus vite pendant le déploiement et débugguer plus facilement ; une amélioration serait d'utiliser une base de données MySQL, plus rapide et plus sécurisée).
+J'utilise `session_start()` de façon à créer une session par utilisateur côté serveur (qui utilise des cookies côté client pour lié l'utilisateur à sa session), et les bases de données sont constituées de fichier .json (pour aller plus vite pendant le déploiement et débugguer plus facilement ; une amélioration serait d'utiliser une base de données MySQL, plus rapide et plus sécurisée).
 
 Il y a concrètement une seule page, index.php, qui charge toutes les autres *on the go*, en fonction des besoins (et de la vue actuelle). Plus simple, mais aussi plus long à charger du coup car une page en charge (pour le moment) une petite dizaine.
 
@@ -44,3 +44,20 @@ De plus, il n'est actuellement pas possible de mettre une photo de profil sur le
 
 Du côté des bugs, nous avons très certainement une faille XSS sur le remplissage des compétences (édition du profil) comme cette partie a dû être faite en grande partie en JavaScript mixé avec du PHP sans grande protection (manque de `htmlspecialchars()` entre autre). 
 De plus, le premier utilisateur inscrit se retrouve dupliqué dans la base de donnée (mais heureusement il n'en est pas de même pour les utilisateurs suivants).
+
+# Difficultés rencontrées
+
+J'ai dû me remettre à niveau en PHP (même si j'avais des bases j'avais pas mal perdu niveau connaissances de la bibliothèque standard) et en JS pour réaliser ce projet.
+
+Les vraies difficultés sont venues quand j'ai dû transmettre la liste des compétences dans une requête POST, sachant que ces compétences étaient générées via du JS et que je ne pouvais pas leur attribuer un `name` (pour que le POST puisse les récupérer après).
+Egalement, comment pouvais envoyer l'état de boutons dans une requête POST et lire tout cela simplement ? Je ne voyais tout simplement pas. Du coup un code JS s'occupe de lire le DOM, de trouver les compétences et d'en faire un dictionnaire pour savoir que 
+compétence X=niveau 5 car on a 5 boutons d'enfoncés, ensuite cela est réinjecté dans un champ caché unique avec un attribut name, pour l'envoyer dans la requête POST.
+
+Générer proprement les compétences de façon à pouvoir en rajouter ou en supprimer, charger celles déjà existantes sans repartir à 0, m'a demandé de mettre en lien du code PHP et du code JS (l'un génère un bout de l'autre par endroit pour que l'autre utilise le premier de façon détournée, un gros casse-tête).
+
+Je l'ai déjà citée dans les critiques et principalement les bugs mais c'est une difficulté que j'ai identifiée mais pas fixée (par manque de temps et de moyens pour la débusquer) : le premier utilisateur est dupliqué (parfois non, parfois oui), et des messages d'erreurs
+fantômes apparaissent sans qu'aucune erreur ne soit lancée (sûrement parce que j'utilise `$_SESSION['error']` pour les transmettre et qu'à un endroit je ne les ai pas supprimés comme j'aurais dû je pense).
+
+Cela mis à part je ne pense avoir vu d'autres difficultés majeures (en dehors du fameux "comment dois-je mettre ci/ça en forme ?", étant donné que je n'ai pas vraiment une âme de designer mais plus de programmeur) dans cette réalisation, qui m'a permis de 
+me remettre à développer un projet web (ce qui en un sens m'avait un peu manqué je trouve), de découvrir des fonctionnalités que je ne soupsonnais pas en JS et en PHP. J'ai également pû me torturer un peu l'esprit quant à l'imbrication de mes vues et leur usage
+ainsi qu'à propos de l'architecture d'un site web (ce qui fait du bien de temps à autre je trouve).
