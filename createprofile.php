@@ -18,7 +18,7 @@ if (!isset($_POST['username']) and !isset($_POST['pass-1']) and !isset($_POST['p
     $confirm = (isset($_POST['pass-2']) and $pass != null) ? true : false;
     $email = (isset($_POST['email'])) ? $_POST['email'] : "";
     
-    if ($name != null and $email != "" and $confirm) {
+    if ($name != null and $email != "" and $confirm == true) {
         $user = new User();
         $user->handlePostRequest($name, $pass, $email, 'USER');
         $user->setActivated(true);
@@ -36,8 +36,7 @@ if (!isset($_POST['username']) and !isset($_POST['pass-1']) and !isset($_POST['p
         mail($email, 'Inscription sur CV.com', wordwrap($message, 70, "\r\n"), $headers);
         */
         
-        $UserManager->addUser($user);
-        $UserManager->updateUsers();
+        $UserManager->addUser($user)->updateUsers();
         
         // connecter l'utilisateur en même temps
         $_SESSION['name'] = $name;

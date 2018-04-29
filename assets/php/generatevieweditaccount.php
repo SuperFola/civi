@@ -4,14 +4,14 @@
         <form method="post" action="editaccount.php">
             <div class="input-group">
                 <span class="input-group-addon" id="basic-addon1">E-Mail</span>
-                <input name="editemail" type="email" class="form-control" placeholder="jean.dupont@exemple.com" aria-describedby="basic-addon1" value="<?php echo $u->getEmail() ?>">
+                <input name="editemail" type="email" class="form-control" placeholder="jean.dupont@exemple.com" aria-describedby="basic-addon1" value="<?php if ($u != null) echo $u->getEmail() ?>">
             </div>
             <br>
             <div class="row">
                 <div class="col-md-9">
                     <div class="input-group">
                         <span class="input-group-addon" id="basic-addon2">Biographie</span>
-                        <textarea name="editbio" id="editbio" type="text" rows="5" maxlength="500" onKeyDown="textCounter(this, 'maxsize', 500)" onKeyUp="textCounter(this, 'maxsize', 500)" class="form-control" placeholder="Votre biographie ici (500 caractères maximum)" aria-describedby="basic-addon2"><?php echo $u->getBio(); ?></textarea>
+                        <textarea name="editbio" id="editbio" type="text" rows="5" maxlength="500" onKeyDown="textCounter(this, 'maxsize', 500)" onKeyUp="textCounter(this, 'maxsize', 500)" class="form-control" placeholder="Votre biographie ici (500 caractères maximum)" aria-describedby="basic-addon2"><?php if ($u != null) echo $u->getBio(); ?></textarea>
                     </div>
                 </div>
                 <div class="col-md-3 text-right">
@@ -21,12 +21,12 @@
             <br>
             <div class="input-group">
                 <span class="input-group-addon" id="basic-addon3">Contenu supplémentaire</span>
-                <textarea name="editcontenusup" type="text" rows="5" class="form-control" placeholder="..." aria-describedby="basic-addon3"><?php echo $u->getContenuSup() ?></textarea>
+                <textarea name="editcontenusup" type="text" rows="5" class="form-control" placeholder="..." aria-describedby="basic-addon3"><?php if ($u != null) echo $u->getContenuSup() ?></textarea>
             </div>
             <br>
             <div class="input-group">
                 <span class="input-group-addon" id="basic-addon4">Année de naissance</span>
-                <input name="edityearofbirth" type="number" class="form-control" min="1900" aria-describedby="basic-addon4" value="<?php echo $u->getYearOfBirth() ?>">
+                <input name="edityearofbirth" type="number" class="form-control" min="1900" aria-describedby="basic-addon4" value="<?php if ($u != null) echo $u->getYearOfBirth() ?>">
             </div>
             <br>
             <div>
