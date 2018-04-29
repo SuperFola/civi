@@ -50,7 +50,7 @@ if (!isset($_POST['editemail']) and !isset($_POST['editbio']) and !isset($_POST[
         $UserManager->editUser($user)->updateUsers();
     }
     
-    header("Location: index.php");
+    header("Location: viewprofile.php?profile=" . $_SESSION['name']);
     exit();
 }
 ?>

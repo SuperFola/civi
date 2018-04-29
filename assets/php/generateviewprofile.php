@@ -1,9 +1,10 @@
 <?php
-$user = $UserManager->findUser($_SESSION['id']);
+$user = $UserManager->findUserByPseudo($parsed["profile"]);
 
 if ($user != null) {
-    $message = "# " . $user->getPseudo() . "\n\n" .
-        "**E-Mail**: " . $user->getEmail() . "\n\n" .
+    echo "<h1 style='display:inline-block'>" . $user->getPseudo() . "</h1><span onclick='copyToClipboard(\"" . $SITE_ADRESSE . "/viewprofile.php?profile=" . $parsed["profile"] . "\")' class=\"glyphicon glyphicon-share\" style='float:right' aria-hidden=\"true\"></span><br><br>";
+    
+    $message = "**E-Mail**: " . $user->getEmail() . "\n\n" .
         "**Âge**: " . $user->getAge() . "\n\n" .
         "**Date d'inscription**: " . $user->getDisplayableDate($user->getTimestampCreation()) . "\n\n" .
         "**Dernière connexion**: " . $user->getLastLogin() . "\n\n" .

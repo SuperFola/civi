@@ -14,6 +14,8 @@ require "generatebreadcrumb.php";  // pour générer le "fil d'Ariane"
 echo "<div class=\"container-fluid\">";
 require "navbar.php";  // inclus et génère la navbar
 
+$SITE_ADRESSE = "http://cv-dot-com.alwaysdata.net";
+
 if (isset($_GET) && !empty($_GET)) {
     // on parse les paramètres
     $parsed = parseparameters($_GET);
@@ -87,6 +89,8 @@ if(!isset($parsed) or (isset($parsed["view"]) and $parsed["view"] == "undefined"
      echo "</div>";
 } ?>
         </div>
+        
+        <script type="text/javascript" src="./assets/js/main.js"></script>
         <script type="text/javascript" src="./assets/js/passwordCheckingRegister.js"></script>
         <script type="text/javascript" src="./assets/js/charsCounter.js"></script>
         <script type="text/javascript" src="./assets/js/competencesAdder.js"></script>

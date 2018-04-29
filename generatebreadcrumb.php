@@ -14,18 +14,18 @@
             // array("createprofile", "editaccount", "search", "viewprofile", "about", "search-error")
             if ($parsed["view"] == "createprofile") {
                 echo "<li><a href=\"index.php\">Accueil</a></li>";
-                echo "<li><a href=\"?view=createprofile\">Profile</a></li>";
+                echo "<li><a href=\"?view=createprofile\">Profil</a></li>";
                 echo "<li class=\"active\">Création</li>";
             } else if ($parsed["view"] == "editaccount") {
                 echo "<li><a href=\"index.php\">Accueil</a></li>";
-                echo "<li><a href=\"?view=editaccount\">Profile</a></li>";
+                echo "<li><a href=\"?view=editaccount\">Profil</a></li>";
                 echo "<li class=\"active\">" . ((isset($_SESSION['name'])) ? $_SESSION['name'] : "Erreur") . "</li>";
             } else if ($parsed["view"] == "search") {
                 echo "<li><a href=\"index.php\">Accueil</a></li>";
                 echo "<li class=\"active\">Recherche</li>";
             } else if ($parsed["view"] == "viewprofile") {
                 echo "<li><a href=\"index.php\">Accueil</a></li>";
-                echo "<li><a href=\"?view=viewprofile\">Profile</a></li>";
+                echo "<li><a href=\"?view=viewprofile\">Profil</a></li>";
                 echo "<li class=\"active\">" . ((isset($_SESSION['viewingprofileof'])) ? $_SESSION['viewingprofileof'] : ((!isset($_GET['profile'])) ? $_SESSION['name'] : htmlspecialchars($_GET['profile']))) . "</li>";
             } else if ($parsed["view"] == "about") {
                 echo "<li><a href=\"index.php\">Accueil</a></li>";

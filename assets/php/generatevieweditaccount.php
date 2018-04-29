@@ -15,7 +15,7 @@
                     </div>
                 </div>
                 <div class="col-md-3 text-right">
-                    <input type="button" id="maxsize" size="3" maxsize="3" class="btn btn-primary" readonly value="500">
+                    <input type="button" id="maxsize" size="3" maxsize="3" class="btn btn-primary" readonly value="<?php if ($u != null) { echo 500-strlen($u->getBio()); } else { echo "500"; } ?>">
                 </div>
             </div>
             <br>

@@ -18,6 +18,11 @@
                 $output["view"] = "undefined";
                 $output["valid"] = false;
             }
+            
+            if (isset($params["profile"])) {
+                $output["profile"] = $params["profile"];
+            }
+            
         } else {
             // incorrect si on est pas vide (cela veut dire qu'on a pas réussi à parser certains arguments)
             // correct si vide parce qu'on a rien eu a parser
