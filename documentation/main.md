@@ -38,9 +38,8 @@ On pourrait voir comme amélioration la possibilité de modérer des comptes, le
 
 De plus, il n'est actuellement pas possible de mettre une photo de profil sur le site. Cela en est ainsi pour deux raisons :
 
-* la première étant que je ne voulais pas que les utilisateurs soient plutôt jugés sur leur apparence physique que sur leurs compétences réelles
-
-* la seconde est liée au manque de temps (pour faire une mise en forme convenable entre autre)
+- la première étant que je ne voulais pas que les utilisateurs soient plutôt jugés sur leur apparence physique que sur leurs compétences réelles
+- la seconde est liée au manque de temps (pour faire une mise en forme convenable entre autre)
 
 Du côté des bugs, nous avons très certainement une faille XSS sur le remplissage des compétences (édition du profil) comme cette partie a dû être faite en grande partie en JavaScript mixé avec du PHP sans grande protection (manque de `htmlspecialchars()` entre autre). 
 De plus, le premier utilisateur inscrit se retrouve dupliqué dans la base de donnée (mais heureusement il n'en est pas de même pour les utilisateurs suivants).
