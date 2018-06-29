@@ -36,6 +36,12 @@
             } else if ($parsed["view"] == "signin") {
                 echo "<li><a href=\"index.php\">Accueil</a></li>";
                 echo "<li class=\"active\">Connexion</li>";
+            } else if ($parsed["view"] == "moderating") {
+                echo "<li><a href=\"index.php\">Accueil</a></li>";
+                echo "<li class=\"active\">Interface de modération</li>";
+            } else if ($parsed["view"] == "messageModal" || $parsed["view"] == "markMessageAsRead") {
+                echo "<li><a href=\"index.php\">Accueil</a></li>";
+                echo "<li class=\"active\">Messages</li>";
             }
         }
         echo "</ol>";

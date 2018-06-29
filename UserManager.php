@@ -18,9 +18,9 @@ class UserManager {
             $admin = new User();
             $admin->handlePostRequest('ADMIN', 'admin', 'admin@domain.com', 'ADMINISTRATEUR');
             $admin->setActivated(true);
-            
+
             $this->addUser($admin);
-            
+
             $this->persistUsers();
         }
 
@@ -59,7 +59,7 @@ class UserManager {
 
         return null;
     }
-    
+
     public function findAll() {
         return $this->users;
     }
@@ -189,14 +189,18 @@ class User {
     protected $lastLogin;
 
     protected $root;
-    
+
     protected $key;
     protected $activated;
-    
+
     protected $bio;  // string
     protected $contenu_sup;  // string
     protected $yearofbirth; // int
     protected $competences;  // array key => value ; ajout de key possible par l'user ; value : int
+
+    // LIFO, stacked from bottom, displayed reverse order
+    protected $messages;  // array timestamp => array (title => ... ; from => ... ; content (markdown) => ...)
+    protected $last_message_read;  // count from top (0)
 
     public function __construct() {
         $this->timestampCreation = time();
@@ -204,22 +208,24 @@ class User {
         $this->root = false;
         $this->key = "";
         $this->activated = false;
+        $this->messages = array();
+        $this->last_message_read = 0;
     }
-    
+
     public function getCompactData() {
         $content = $this->pseudo . "\n" .
             $this->email . "\n" .
             (intval(date('Y')) - $this->yearofbirth) . " ans\n" .
             $this->bio . "\n" .
             $this->contenu_sup . "\n";
-        
+
         foreach ($this->competences as $key => $value) {
             $content .= $key . "=" . $value . "\n";
         }
-        
+
         return $content;
     }
-    
+
     public function activate($key) {
         if ($this->key == $key)
             $this->activated = true;
@@ -243,12 +249,12 @@ class User {
             $this->activated = true;
         return $this;
     }
-    
+
     public function setActivated($val=true) {
         $this->activated = $val;
         return $this;
     }
-    
+
     public function getActivated() {
         return $this->activated;
     }
@@ -331,7 +337,7 @@ class User {
         $this->id = $id;
         return $this;
     }
-    
+
     public function setKey($key) {
         $this->key = $key;
         return $this;
@@ -425,7 +431,7 @@ class User {
     public function getLastLogin() {
         return $this->getDisplayableDate($this->lastLogin);
     }
-    
+
     public function getDisplayableDate($date_) {
         $diff = time() - $date_;
         if ($diff < 120) {
@@ -474,57 +480,110 @@ class User {
         $this->root = $root;
         return $this;
     }
-    
+
     public function setBio($bio) {
         $this->bio = $bio;
         return $this;
     }
-    
+
     public function getBio() {
         if (isset($this->bio))
             return $this->bio;
         return "";
     }
-    
+
     public function getContenuSup() {
         if (isset($this->contenu_sup))
             return $this->contenu_sup;
         return "";
     }
-    
+
     public function setContenuSup($val) {
         $this->contenu_sup = $val;
         return $this;
     }
-    
+
     public function getAge() {
         if (isset($this->yearofbirth))
             return intval(date('Y')) - $this->yearofbirth;
         return 0;
     }
-    
+
     public function setAge($age) {
         $this->yearofbirth = intval(date('Y')) - $age;
         return $this;
     }
-    
+
     public function getYearOfBirth() {
         return $this->yearofbirth;
     }
-    
+
     public function setYearOfBirth($yob) {
         $this->yearofbirth = $yob;
         return $this;
     }
-    
+
     public function getCompetences() {
         if (isset($this->competences))
             return $this->competences;
         return array("empty" => true);
     }
-    
+
     public function setCompetences($competences) {
         $this->competences = $competences;
         return $this;
+    }
+
+    public function getUnreadMessages() {
+        return count($this->messages) - $this->last_message_read;
+    }
+
+    // Meant to be used by another User
+    // LIFO, stacked from bottom, displayed reverse order
+    // $messages  // array id => array (timestamp => ... ; title => ... ; from => ... ; content (markdown) => ...)
+    // $last_message_read  // count from top (0)
+    public function sendMessage($timestamp, $title, $from, $content) {
+        $this->messages[] = array(
+            "timestamp" => $timestamp,
+            "title" => $title,
+            "from" => $from,
+            "content" => $content
+        );
+        return $this;
+    }
+
+    // Meant to be used by the User
+    public function markMessageAsRead($message_index) {
+        if ($message_index < count($this->messages)) {
+            $temp = $this->messages[$this->last_message_read++];
+            $this->messages[$this->last_message_read] = $messages[$message_index];
+            $this->messages[$message_index] = $temp;
+        }
+        return $this;
+    }
+
+    // Meant to be used by the User
+    public function deleteMessage($message_index) {
+        if ($message_index < count($this->messages)) {
+            array_splice($this->messages, $message_index, 1);
+        }
+        return $this;
+    }
+
+    // Meant to be used by the User
+    public function getArrayOfMessages() {
+        return $this->messages;
+    }
+
+    // Meant to be used by the User
+    public function formatMessageToMarkdown($message_index) {
+        if ($message_index < count($this->messages)) {
+            $msg = $this->messages[$message_index];
+            $f = "Message de " . $msg["from"]->getPseudo() . " (" . $msg["from"]->getEmail() . ") ";
+            $f .= $this->getDisplayableDate($msg["timestamp"]);
+            $f .= "\n### " . $msg["title"] . "\n" . $msg["content"] . "\n";
+            return $f;
+        }
+        return '## Erreur\nImpossible formater le message, celui-ci est introuvable';
     }
 }

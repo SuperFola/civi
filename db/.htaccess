@@ -1,4 +1,0 @@
-AuthType Basic
-AuthName "Authentification requise"
-AuthUserFile /home/cv-dot-com/www/db/.htpasswd
-Require valid-user

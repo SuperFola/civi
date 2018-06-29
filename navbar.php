@@ -41,7 +41,17 @@
                 <li><a href="createprofile.php">Inscription</a></li>
                 <li><a href="signin.php">Connexion</a></li>
 <?php } else { ?>
-                <!--<li><a href="disconnect.php">Déconnexion</a></li>-->
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#messagesModal">
+                        <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+<?php if ($UserManager->findUserByPseudo($_SESSION['name']) != null) {
+    $unread_messages = $UserManager->findUserByPseudo($_SESSION['name'])->getUnreadMessages();
+    if ($unread_messages != 0) {
+        echo "<span class='badge'>$unread_messages</span>";
+    }
+} ?>
+                    </a>
+                </li>
                 <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $_SESSION['name'] ?> <span class="caret"></span></a>
                 <ul class="dropdown-menu">
@@ -50,6 +60,10 @@
                     <!--<li><a href="#">Something else here</a></li>-->
                     <li role="separator" class="divider"></li>
                     <li><a href="disconnect.php">Déconnexion</a></li>
+<?php if ($UserManager->findUserByPseudo($_SESSION['name']) != null && $UserManager->findUserByPseudo($_SESSION['name'])->is('ADMINISTRATEUR')) { ?>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="moderation.php">Modération</a></li>
+<?php } ?>
                 </ul>
                 </li>
 <?php } ?>

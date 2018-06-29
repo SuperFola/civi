@@ -12,6 +12,11 @@ require "./generatebreadcrumb.php";  // pour générer le "fil d'Ariane"
 // génération de la page web
 echo "<div class=\"container-fluid\" id=\"999999\">";
 require "./navbar.php";  // inclus et génère la navbar
+// inclus et génère les modales
+require "./assets/php/messagesModal.php";
+require "./assets/php/lireMessageModal.php";
+require "./assets/php/nouveauMessageModal.php";
+require "./assets/php/erreurModal.php";
 require "./config.php";  // contient les variables globales importantes (pour le moment uniquement l'url principale du site web)
 
 if (isset($_GET) && !empty($_GET)) {
@@ -83,6 +88,18 @@ if(!isset($parsed) or (isset($parsed["view"]) and $parsed["view"] == "undefined"
             // affichage de la vue pour se connecter
             require "./assets/php/generateformsignin.php";
         }
+    } else if ($parsed["view"] == "moderating") {
+        if ($UserManager->findUserByPseudo($_SESSION['name']) != null && $UserManager->findUserByPseudo($_SESSION['name'])->is('ADMINISTRATEUR')) {
+            require "./assets/php/generatemoderation.php";
+        } else {
+            echo $Parsedown->text("## Erreur\nVous n'avez pas le droit d'accéder à cette ressource\nPourquoi ne pas retourner à [l'accueil](index.php) ?");
+        }
+    } else if ($parsed["view"] == "markMessageAsRead") {
+        $u = $UserManager->findUserByPseudo($_SESSION['name']);
+        $u->markMessageAsRead(intval($parsed["idx"]));
+        $UserManager->editUser($u)->updateUsers();
+    } else if ($parsed["view"] == "messageModal") {
+        // do nothing
     } else {
         echo "<script type=\"text/javascript\">window.location.replace(\"index.php?view=undefined\");</script>";
      }
@@ -90,15 +107,30 @@ if(!isset($parsed) or (isset($parsed["view"]) and $parsed["view"] == "undefined"
 } ?>
         </div>
 <?php require "./assets/php/generatefooter.php"; ?>
-        
+
         <script type="text/javascript" src="./assets/js/main.js"></script>
         <script type="text/javascript" src="./assets/js/passwordCheckingRegister.js"></script>
         <script type="text/javascript" src="./assets/js/charsCounter.js"></script>
         <script type="text/javascript" src="./assets/js/competencesAdder.js"></script>
+
         <?php if (isset($parsed) and $parsed["view"] == "editaccount") { ?>
         <script type="text/javascript">
         (function () {
-        <?php $x = $UserManager->findUser($_SESSION['id'])->getCompetences(); if (!isset($x["empty"])) { foreach ($x as $key => $value) { ?>addCompetence(<?php echo "'" . $key . "', " . $value; ?>);<?php }} ?>
+<?php
+    $x = $UserManager->findUser($_SESSION['id'])->getCompetences();
+    if (!isset($x["empty"])) {
+        foreach ($x as $key => $value) {
+        ?>
+        addCompetence(<?php echo "'" . $key . "', " . $value; ?>);
+<?php }} ?>
+        })();
+        </script>
+        <?php } ?>
+
+        <?php if (isset($parsed) && $parsed["view"] == "markMessageAsRead" || $parsed["view"] == "messageModal") { ?>
+        <script type="text/javascript">
+        (function () {
+            $("<?php if (!isset($_SESSION['error'])) { echo "#messagesModal"; } else { echo "#erreurModal"; } ?>").modal('show');
         })();
         </script>
         <?php } ?>
