@@ -1,10 +1,4 @@
 ## A propos de nous
 
-CV.com est un site réalisé par Alexandre Plateau dans le cadre du concours Coddity (2018). Le code source est disponible [ici](https://github.com/SuperFola/BourseCoddity18/).
+**civi** est un site réalisé par Alexandre Plateau dans le cadre du concours Coddity (2018). Le code source est disponible [ici](https://github.com/SuperFola/civi/).
 
-Tous nos choix techniques sont listés ci-dessous (générés automatiquement à partir de la documentation trouvable [ici](documentation/main.md)) :
-
-%documentation%
-
-*Nota bene* : ce projet a été nommé `CV.com` de façon purement arbitraire. En effet il ne pourrait être mis en ligne sur ce nom de domaine qui est déjà pris, et il manque
-beaucoup de fonctionnalités pour en faire un site pleinement utilisable et agréable.
